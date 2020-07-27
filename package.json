@@ -1,6 +1,6 @@
 {
-  "name": "projectname",
-  "version": "0.0.1",
+  "name": "hulaUI",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,9 @@
   "author": "analyman",
   "license": "ISC",
   "dependencies": {
-    "annautils": "^0.0.1"
+    "annautils": "^0.0.1",
+    "vue": "^2.6.11",
+    "vue-class-component": "^7.2.5"
   },
   "devDependencies": {
     "@types/gulp": "^4.0.6",
@@ -27,13 +29,13 @@
     "rimraf": "^3.0.2",
     "sass": "^1.26.3",
     "tsify": "^4.0.1",
-    "typescript": "^3.8.3",
+    "typescript": "^3.9.7",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   },
   "readmeFilename": "README.md",
   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/analyman/"
+    "type": "git",
+    "url": "https://github.com/analyman/"
   }
 }

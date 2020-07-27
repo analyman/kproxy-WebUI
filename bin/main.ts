@@ -1,4 +1,7 @@
 #!/usr/bin/env node
 
-console.log("main");
+import { Configpage } from '../lib/configPage';
+
+let page = new Configpage();
+page.$mount("#app");
 

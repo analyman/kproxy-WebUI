@@ -2,19 +2,18 @@
     "version": "3.8.3",
     "compilerOptions": {
         "downlevelIteration": true,
-        "lib": ["es2015"],
+        "lib": ["es2015", "dom"],
         "target": "es2019",
         "module": "commonjs",
         "typeRoots": [
             "node_modules/@types",
             "release/@types"
         ],
-        "baseUrl": ".",
-        "paths": {},
-        "esModuleInterop": true,
+        "baseUrl": "./",
+        "paths": {
+        },
         "rootDirs": ["./"],
-        "outDir": "dist",
-        "moduleResolution": "node",
+        "outDir": "dist-app",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
@@ -23,9 +22,8 @@
         "sourceMap": true
     },
     "include": [
-        "lib/**/*",
-        "bin/**/*",
-        "test/**/*"
+        "bin/*",
+        "lib/**/*.ts"
     ],
     "exclude": [
         "node_modules"

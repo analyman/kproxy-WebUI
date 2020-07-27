@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <head>
+        <link rel="stylesheet" href="/styles/webdisk.css"/>
+        <script src="/main.js" defer></script>
+    </head>
+    <body>
+
+        <template id="config-page">
+        <div class="config-table">
+            <table>
+                <tr><td>server name</td><td>{{  name }}</td></tr>
+                <tr><td>bind address</td><td>{{ bind_addr }}</td></tr>
+                <tr><td>bind port   </td><td>{{ bind_port }}</td></tr>
+                <tr><td>certificate </td><td>{{ certificate }}</td></tr>
+                <tr><td>privateKey  </td><td>{{ private_key }}</td></tr>
+                <tr><td>ciphers     </td><td>{{ ciphers }}</td></tr>
+            </table>
+        </div>
+        </template>
+
+        hello world!
+        <div id="app"></div>
+    </body>
+</html>
+
