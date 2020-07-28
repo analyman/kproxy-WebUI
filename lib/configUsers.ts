@@ -18,6 +18,16 @@ export class ConfigUsers extends Vue implements IUsersInfo //{
                 if(!this.m_update_config) return;
                 this.m_update_config = false;
                 this.__update_config();
+            },
+            methods: {
+                add_user_listener: function () {
+                    if(this.users.length > 0) {
+                        let mm = this.getChildren(this.getChildrenLength() - 1);
+                        if(mm && mm.username == "" && mm.password == "")
+                            return;
+                    }
+                    this.users.push(["", ""]);
+                }
             }
         });
         this.m_update_config = false;
@@ -39,13 +49,8 @@ export class ConfigUsers extends Vue implements IUsersInfo //{
 
     private validIndexOfChild(i: number): boolean //{
     {
-        if(this.vnode().children.length <= i) return false;
-        for(let k=0;k<this.vnode().children.length;k++) {
-            let child = this.vnode().children[i];
-            if(!child.tag || child.tag.toLowerCase() != 'li') return false;
-            if(child.children.length != 1) return false;
-            if(!child.children[0].componentInstance) return false;
-        }
+        let valid_children: number = this.getChildrenLength();
+        if(valid_children <= i) return false;
         return true;
     } //}
 
@@ -56,13 +61,35 @@ export class ConfigUsers extends Vue implements IUsersInfo //{
             return null;
         }
 
-        return this.vnode().children[i].children[0].componentInstance as UserSlot;
+        let valid_children: number = -1;
+        for(let k=0;k<this.vnode().children.length;k++) {
+            let child = this.vnode().children[k];
+            if(!this.valid_child_vnode(child)) continue;
+            valid_children++;
+            if(valid_children == i) return child.children[0].componentInstance as UserSlot;
+        }
+
+        return null;
     } //}
 
     private getChildrenLength(): number //{
     {
-        if(!this.validIndexOfChild(0)) return 0;
-        return this.vnode().children.length;
+        if(this.vnode().children.length == 0) return 0;
+        let valid_children: number = 0;
+        for(let k=0;k<this.vnode().children.length;k++) {
+            let child = this.vnode().children[k];
+            if(!this.valid_child_vnode(child)) continue;
+            valid_children++;
+        }
+        return valid_children;
+    } //}
+
+    private valid_child_vnode(vn: Vue.VNode): boolean //{
+    {
+        if(!vn.tag || vn.tag.toLowerCase() != 'li') return false;
+        if(vn.children.length != 1) return false;
+        if(!vn.children[0].componentInstance) return false;
+        return true;
     } //}
 } //}
 

@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="/styles/main.css"/>
     <head>
         <script src="/main.js" defer></script>
     </head>
@@ -60,6 +61,7 @@
                 <li v-for="user in users">
                     <user-slot></user-slot>
                 </li>
+                <li class="add-user" v-on:click="add_user_listener"><div>+</div></li>
             </div>
         </template>
 
@@ -67,12 +69,12 @@
             <div class="c-user-slot">
                 <table>
                     <tr>
-                        <td>username</td>
+                        <!-- <td>username</td> -->
                         <td><input v-model="username"></td>
                     </tr>
                     <tr>
-                        <td>password</td>
-                        <td><input type="password" v-model="password"></td>
+                        <!-- <td>password</td> -->
+                        <td><input v-bind:type="password_type" v-model="password"></td>
                     </tr>
                 </table>
             </div>

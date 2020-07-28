@@ -4,14 +4,16 @@ export class UserSlot extends Vue {
     public static __template = "#user-slot";
     public username: string;
     public password: string;
+    public passwork_type: string;
 
     constructor() {
         super({
             template: UserSlot.__template,
             data: {
                 username: "",
-                password: ""
-            }
+                password: "",
+                password_type: "password",
+            },
         });
     }
 
