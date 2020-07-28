@@ -1,11 +1,27 @@
 import Vue from 'vue';
-import Component from 'vue-class-component';
 
+interface IConfigInfo {
+    name: string;
+    bind_addr: string;
+    bind_port: number;
+    certificate: string;
+    private_key: string;
+    ciphers: string;
+}
+export class ConfigInfo implements IConfigInfo //{
+{
+    public name: string = "";
+    public bind_addr: string = "";
+    public bind_port: number = 0;
+    public certificate: string = "";
+    public private_key: string = "";
+    public ciphers: string = "";
+} //}
 
-@Component({
-    template: "#config-page",
-})
-export class Configpage extends Vue {
+export class ConfigPage extends Vue implements IConfigInfo //{
+{
+    public static __template = "#config-page";
+
     public name: string;
     public bind_addr: string;
     public bind_port: number;
@@ -13,15 +29,30 @@ export class Configpage extends Vue {
     public private_key: string;
     public ciphers: string;
 
-    constructor() {
-        super();
-        this.name      = "";
-        this.bind_addr = "";
-        this.bind_port = -1;
-        this.certificate = "";
-        this.private_key = "";
-        this.ciphers = "";
-    }
+    constructor() //{
+    {
+        super({
+            template: ConfigPage.__template,
+            data: new ConfigInfo(),
+        });
+    } //}
+
+    public update_config(info: IConfigInfo) //{
+    {
+        this.name      = info.name;
+        this.bind_addr = info.bind_addr;
+        this.bind_port = info.bind_port;
+        this.certificate = info.certificate;
+        this.private_key = info.private_key;
+        this.ciphers = info.ciphers;
+    } //}
+} //}
+
+let registered: boolean = false;
+export function registerVueComponentConfigPage() {
+    if(registered) return;
+    Vue.component("config-page", ConfigPage);
+    console.debug("registered <config-page> component");
+    registered = true;
 }
-Vue.component("config-page", Configpage);
 

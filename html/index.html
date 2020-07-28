@@ -2,25 +2,82 @@
 <html>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <head>
-        <link rel="stylesheet" href="/styles/webdisk.css"/>
         <script src="/main.js" defer></script>
     </head>
     <body>
 
+        <template id="the-app">
+            <div class="c-the-app">
+                <manager></manager>
+                <all-tabs></all-tabs>
+            </div>
+        </template>
+
+        <template id="manager">
+            <div class="c-manager">
+            </div>
+        </template>
+
+        <template id="all-tabs">
+            <div class="c-all-tabs">
+                <select-list></select-list>
+                <li v-for="config in m_configs">
+                    <config-tab></config-tab>
+                </li>
+            </div>
+        </template>
+
+        <template id="select-list">
+            <div class="c-select-list">
+                <li v-for="name in m_names" v-bind:data-location="name[0]" v-on:click="click_listener">
+                    {{ name[1] }}
+                </li>
+            </div>
+        </template>
+
+        <template id="config-tab">
+            <div class="c-config-tab" v-bind:class="{ active: is_actived }">
+                <config-page ></config-page>
+                <config-users></config-users>
+            </div>
+        </template>
+
         <template id="config-page">
-        <div class="config-table">
+        <div class="c-config-page">
             <table>
-                <tr><td>server name</td><td>{{  name }}</td></tr>
-                <tr><td>bind address</td><td>{{ bind_addr }}</td></tr>
-                <tr><td>bind port   </td><td>{{ bind_port }}</td></tr>
-                <tr><td>certificate </td><td>{{ certificate }}</td></tr>
-                <tr><td>privateKey  </td><td>{{ private_key }}</td></tr>
-                <tr><td>ciphers     </td><td>{{ ciphers }}</td></tr>
+                <tr><td>server name</td> <td><input v-model="name" placeholder=""></td></tr>
+                <tr><td>bind address</td><td><input v-model="bind_addr" placeholder=""></td></tr>
+                <tr><td>bind port   </td><td><input v-model="bind_port" placeholder=""></td></tr>
+                <tr><td>certificate </td><td><input v-model="certificate" placeholder=""></td></tr>
+                <tr><td>privateKey  </td><td><input v-model="private_key" placeholder=""></td></tr>
+                <tr><td>ciphers     </td><td><input v-model="ciphers" placeholder=""></td></tr>
             </table>
         </div>
         </template>
 
-        hello world!
+        <template id="config-users">
+            <div class="c-config-users">
+                <li v-for="user in users">
+                    <user-slot></user-slot>
+                </li>
+            </div>
+        </template>
+
+        <template id="user-slot">
+            <div class="c-user-slot">
+                <table>
+                    <tr>
+                        <td>username</td>
+                        <td><input v-model="username"></td>
+                    </tr>
+                    <tr>
+                        <td>password</td>
+                        <td><input type="password" v-model="password"></td>
+                    </tr>
+                </table>
+            </div>
+        </template>
+
         <div id="app"></div>
     </body>
 </html>

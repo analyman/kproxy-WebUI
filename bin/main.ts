@@ -1,7 +1,6 @@
 #!/usr/bin/env node
+import { TheApp } from '../lib/App';
 
-import { Configpage } from '../lib/configPage';
-
-let page = new Configpage();
-page.$mount("#app");
+let app = new TheApp();
+app.$mount("#app");
 

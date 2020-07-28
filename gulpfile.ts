@@ -87,7 +87,7 @@ export function watch() //{
 {
     let watcher = gulp.watch([
         "lib/**/*.ts", "bin/**/*.ts", "styles/*.scss", 
-        "html/**", "asset/**", "index*"
+        "html/*.html", "asset/**", "index*"
     ].map(x => path.join(project_root, x)));
     let handle = (fp: string, stat) => {
         console.log(`[${fp}] fires event`);
