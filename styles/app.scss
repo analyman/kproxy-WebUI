@@ -1,0 +1,13 @@
+/** app */
+
+@use './colors.scss' as ucolor;
+
+.c-the-app {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    background-color: ucolor.$bg-app;
+}
+

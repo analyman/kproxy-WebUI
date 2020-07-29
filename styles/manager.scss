@@ -1,0 +1,39 @@
+/** manager */
+
+@use './colors.scss' as ucolor;
+
+.c-manager {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    margin: 0.3em 1.4em;
+    padding: 1em;
+    border-radius: 1em;
+
+    background-color: ucolor.$bg-manager-main;
+
+    .c-manager-status {
+        width: 40%;
+
+        & > table {
+            width: 100%;
+        }
+    }
+
+    .c-manager-cmds {
+        width: 60%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        & > input[type="button"] {
+            margin: 0.2em;
+            padding: 0.2em 0.3em;
+            flex-basis: 1em;
+            flex-grow: 1;
+            min-width: 20%;
+        }
+    }
+}
+

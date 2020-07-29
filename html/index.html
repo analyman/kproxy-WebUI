@@ -16,6 +16,27 @@
 
         <template id="manager">
             <div class="c-manager">
+                <div class="c-manager-status">
+                    <table>
+                        <tr>
+                            <td>Runing: </td><td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="c-manager-cmds">
+                    <input type="button" value="Start" v-on:click="start">
+                    <input type="button" value="Stop" v-on:click="stop">
+
+                    <input type="button" value="Delete" v-on:click="_delete">
+
+                    <input type="button" value="Update All" v-on:click="update_all">
+                    <input type="button" value="Update Current" v-on:click="update_current">
+                    <input type="button" value="Update Remain" v-on:click="update_remain">
+
+                    <input type="button" value="Upload All" v-on:click="upload_all">
+                    <input type="button" value="Upload Current" v-on:click="upload_current">
+                    <input type="button" value="Uplaod Remain" v-on:click="upload_remain">
+                </div>
             </div>
         </template>
 
@@ -46,12 +67,12 @@
         <template id="config-page">
         <div class="c-config-page">
             <table>
-                <tr><td>server name</td> <td><input v-model="name" placeholder=""></td></tr>
-                <tr><td>bind address</td><td><input v-model="bind_addr" placeholder=""></td></tr>
-                <tr><td>bind port   </td><td><input v-model="bind_port" placeholder=""></td></tr>
-                <tr><td>certificate </td><td><input v-model="certificate" placeholder=""></td></tr>
-                <tr><td>privateKey  </td><td><input v-model="private_key" placeholder=""></td></tr>
-                <tr><td>ciphers     </td><td><input v-model="ciphers" placeholder=""></td></tr>
+                <tr><td>server name</td> <td><input v-model="name" placeholder=""><span></span></td></tr>
+                <tr><td>bind address</td><td><input v-model="bind_addr" placeholder=""><span></span></td></tr>
+                <tr><td>bind port   </td><td><input v-model="bind_port" placeholder=""><span></span></td></tr>
+                <tr><td>certificate </td><td><input v-model="certificate" placeholder=""><span></span></td></tr>
+                <tr><td>privateKey  </td><td><input v-model="private_key" placeholder=""><span></span></td></tr>
+                <tr><td>ciphers     </td><td><input v-model="ciphers" placeholder=""><span></span></td></tr>
             </table>
         </div>
         </template>
@@ -61,7 +82,7 @@
                 <li v-for="user in users">
                     <user-slot></user-slot>
                 </li>
-                <li class="add-user" v-on:click="add_user_listener"><div>+</div></li>
+                <li class="add-user" v-on:click="add_user_listener"><div>new</div></li>
             </div>
         </template>
 
@@ -77,6 +98,11 @@
                         <td><input v-bind:type="password_type" v-model="password"></td>
                     </tr>
                 </table>
+
+                <div>
+                    <div v-on:click="delete_slot">&cross;</div>
+                    <input type="checkbox" v-model="password_checked">
+                </div>
             </div>
         </template>
 

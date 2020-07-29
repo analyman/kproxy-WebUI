@@ -10,7 +10,8 @@ export class ConfigUsers extends Vue implements IUsersInfo //{
     public users: [string, string][];
     private m_update_config: boolean;
 
-    constructor() {
+    constructor() //{
+    {
         super({
             template: ConfigUsers.__template,
             data: new UsersInfo(),
@@ -26,12 +27,15 @@ export class ConfigUsers extends Vue implements IUsersInfo //{
                         if(mm && mm.username == "" && mm.password == "")
                             return;
                     }
-                    this.users.push(["", ""]);
+                    let users = this.collect_users(-1);
+                    users.push(["", ""]);
+
+                    this.update_config({users: users});
                 }
             }
         });
         this.m_update_config = false;
-    }
+    } //}
 
     public update_config(config: IUsersInfo) //{
     {
@@ -39,10 +43,25 @@ export class ConfigUsers extends Vue implements IUsersInfo //{
         this.m_update_config = true;
     } //}
 
+    private collect_users(exc_id: number): [string, string][] //{
+    {
+        let the_users: [string, string][] = [];
+        for(let j=0;j<this.getChildrenLength();j++) {
+            if(j == exc_id) continue;
+            the_users.push([this.getChildren(j).username, this.getChildren(j).password]);
+        }
+        return the_users;
+    } //}
     private __update_config() //{
     {
-        for(let i=0;i<this.getChildrenLength();i++)
-            this.getChildren(i).update_config(this.users[i][0], this.users[i][1]);
+        for(let i=0;i<this.getChildrenLength();i++) {
+            this.getChildren(i).update_config(this.users[i][0], this.users[i][1], i);
+            this.getChildren(i).$off("delete");
+            this.getChildren(i).$on("delete", (id: number) => {
+                let the_users = this.collect_users(id);
+                this.update_config({users: the_users});
+            });
+        }
     } //}
 
     private vnode(): Vue.VNode {return this["_vnode"];} // TODO ($vnode === undefined)

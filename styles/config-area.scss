@@ -1,7 +1,12 @@
 /** config part */
 
 @use './mixin.scss' as mixin;
+@use './colors.scss' as ucolor;
+@use 'sass:color';
 
+@function hovercolor($color) {
+    @return darken($color, 10%);
+}
 
 .c-all-tabs {
     display: flex;
@@ -27,13 +32,14 @@
 }
 
 
-.c-select-list {
+.c-select-list //{
+{
     width: 100%;
     box-sizing: border-box;
 
     border-radius: 1.5em 1.5em 0em 0em;
     padding: 0.3em 0.3em 0em 0.3em;
-    background-color: antiquewhite;
+    background-color: ucolor.$bg-config-select-area;
 
     display: flex;
     flex-direction: row;
@@ -43,35 +49,38 @@
     flex-grow: 1;
 
     & .active {
-        background-color: blueviolet;
+        background-color: ucolor.$bg-config-main;
 
         &:hover {
-            background-color: royalblue;
+            background-color: hovercolor(ucolor.$bg-config-main);
         }
     }
 
     > li {
+        @include mixin.no-select();
         width: 100%;
+        color: ucolor.$font-config-names;
         margin: 0.5em 1em 0em 1em;
         padding: 0.5em 0.8em 0.3em 0.8em;
-        background-color: beige;
+        background-color: ucolor.$bg-config-select-no;
         border-radius: 0.3em 0.3em 0em 0em;
 
         text-align: center;
 
         &:hover {
-            background-color: azure;
+            background-color: hovercolor(ucolor.$bg-config-select-no);
         }
     }
-}
+} //}
 
 
-.c-config-tab {
+.c-config-tab 
+{
     box-sizing: border-box;
     width: 100%;
     height: 100%;
     padding: 1em;
-    background-color: coral;
+    background-color: ucolor.$bg-config-main;
 
     border-radius: 0em 0em 0.2em 0.2em;
 
@@ -90,22 +99,44 @@
                 font-family: sans-serif;
 
                 & > td:first-child {
-                    color: firebrick;
+                    color: ucolor.$font-config-field;
                     padding: 0.8em;
                 }
 
-                input {
-                    color: black;
-                    background-color: rgb(0,0,0,0);
-                    width: 100%;
-                    border-color: black;
-                    border-left: none;
-                    border-right: none;
-                    border-top: none;
-                    border-bottom: 1.5px solid black;
+                & > td:last-child {
+                    display: flex;
+                    flex-direction: column;
 
-                    &:focus {
-                        outline: none;
+                    width: 100%;
+                    input {
+                        color: ucolor.$font-config-input;
+                        box-sizing: border-box;
+                        background-color: rgb(0, 0, 0, 0);
+                        width: 100%;
+                        border-left: none;
+                        border-right: none;
+                        border-top: none;
+                        border-bottom: 1px solid ucolor.$input-border-a;
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+
+                    span {
+                        box-sizing: border-box;
+                        margin: 0em;
+                        padding: 0em;
+                        width: 0%;
+                        height: 1.5px;
+                        background-color: ucolor.$input-border-b;
+
+                        transition: 0.5s;
+                    }
+
+                    input:focus ~ span {
+                        width: 100%;
+                        transition: 0.5s;
                     }
                 }
             }
@@ -132,7 +163,10 @@
     padding: 0.4em;
     margin: 0.4em;
     border-radius: 0.3em;
-    background-color: darkblue;
+    background-color: ucolor.$bg-config-user-slot;
+
+    display: flex;
+    flex-direction: row;
 
     table {
         width: 100%;
@@ -146,19 +180,60 @@
             }
 
             input {
-                color: black;
-                background-color: rgb(0,0,0,0);
+                color: ucolor.$font-user-slot;
+                background-color: ucolor.$bg-config-user-slot;
                 width: 100%;
-                border-color: black;
                 border-left: none;
                 border-right: none;
                 border-top: none;
-                border-bottom: 1.5px solid black;
+                border-bottom: 1.5px solid ucolor.$input-border-a;
 
                 &:focus {
                     outline: none;
                 }
             }
+        }
+    }
+
+    & > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        & > input, div {
+            height: 1em;
+            width: 1em;
+        }
+
+        & > div {
+            @include mixin.no-select();
+            position: relative;
+            top: -0.5em;
+            left: 0.4em;
+
+            padding: 0.1em;
+            border-radius: 0.2em;
+
+            width: min-content;
+            height: min-content;
+
+            &:hover {
+                background-color: hovercolor(ucolor.$bg-config-user-slot);
+            }
+
+            &:active {
+                background-color: hovercolor(hovercolor(ucolor.$bg-config-user-slot));
+            }
+        }
+
+        & > input[type="checkbox"] {
+            position: relative;
+            left: 0.2em;
+            top: 0.1em;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+            border-bottom: none;
         }
     }
 }
@@ -170,5 +245,5 @@
     justify-content: center;
 
     @include mixin.no-select();
-    @include mixin.common_button();
+    @include mixin.common_button(ucolor.$bg-config-user-slot-add, ucolor.$font-user-slot-add);
 }
